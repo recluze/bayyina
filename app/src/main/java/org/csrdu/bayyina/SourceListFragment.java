@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 
 import org.csrdu.bayyina.helpers.SourceListProvider;
 import org.csrdu.bayyina.helpers.SourceOpenHelper;
@@ -42,7 +43,7 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
         View rootView = inflater.inflate(R.layout.fragment_source_list, container, false);
         // return rootView;
 
-        mListView = (ListView) rootView.findViewById(R.id.listview);
+        mListView = (ListView) rootView.findViewById(R.id.sources_listview);
         mAdapter = new SimpleCursorAdapter(getActivity(),
                 R.layout.source_lv_item_layout,
                 null,
@@ -95,19 +96,22 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
         */
 
         // super.onItemClick(parent, view, position, id);
-        // Intent i = new Intent(this, TodoDetailActivity.class);
-//        Intent i = new Intent();
+        Intent i = new Intent(getActivity(), BayanList.class);
         Uri todoUri = Uri.parse(SourceListProvider.CONTENT_URI + "/" + id);
-//        i.putExtra(SourceListProvider.CONTENT_ITEM_TYPE, todoUri);
-//
-//        startActivity(i);
+        i.putExtra(SourceListProvider.CONTENT_ITEM_TYPE, todoUri);
+        startActivity(i);
 
-        listener.OnSourceChanged(todoUri);
+        /*
+        Toast.makeText(getActivity(), "Starting Bayan List for id: " + position, Toast.LENGTH_SHORT);
+        // listener.OnSourceChanged(todoUri);
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, new BayanListFragment())
                 .commit();
+                */
+
     }
 
+    /*
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -124,5 +128,6 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
         super.onDetach();
         listener = null;
     }
+    */
 
 }

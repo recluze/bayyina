@@ -12,7 +12,7 @@ public class SourceOpenHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
 
-    public static final String SOURCE_DB_NAME = "sources.db";
+    // public static final String SOURCE_DB_NAME = "sources.db";
     public static final String SOURCE_TABLE_NAME = "sources";
 
     public static final String SOURCE_ID = "_id";

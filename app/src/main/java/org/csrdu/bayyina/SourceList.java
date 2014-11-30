@@ -10,7 +10,7 @@ import org.csrdu.bayyina.interfaces.GetSource;
 import org.csrdu.bayyina.interfaces.SetSource;
 
 
-public class SourceList extends Activity implements GetSource, SetSource {
+public class SourceList extends Activity {
 
     Uri selected_source_uri;
 
@@ -18,11 +18,11 @@ public class SourceList extends Activity implements GetSource, SetSource {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bayan_list);
-        if (savedInstanceState == null) {
+        // if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new SourceListFragment())
                     .commit();
-        }
+        // }
 
     }
 
@@ -47,19 +47,5 @@ public class SourceList extends Activity implements GetSource, SetSource {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public Uri getSelectedSource() {
-        if(selected_source_uri != null)
-            return selected_source_uri;
-        else
-            throw new NullPointerException("Source not selected. Buggy program flow.");
-    }
-
-    @Override
-    public void OnSourceChanged(Uri source_uri) {
-        this.selected_source_uri = source_uri;
     }
 }

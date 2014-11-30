@@ -17,9 +17,18 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="org.csrdu.bayyina.BayanList"
+            android:label="@string/bayan_list_activity_name" >
+
+        </activity>
+
         <provider
-            android:authorities="org.csrdu.bayyina.sources.SourceListProvider"
-            android:name=".helpers.SourceListProvider"></provider>
+        android:authorities="org.csrdu.bayyina.sources.SourceListProvider"
+        android:name=".helpers.SourceListProvider"></provider>
+        <provider
+            android:authorities="org.csrdu.bayyina.bayans.BayanListProvider"
+            android:name=".helpers.BayanListProvider"></provider>
 
     </application>
 
