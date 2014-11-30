@@ -1,4 +1,4 @@
-package org.csrdu.bayyina.org.csrdu.bayyina.helpers;
+package org.csrdu.bayyina.helpers;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -7,9 +7,11 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 
 public class SourceListProvider extends ContentProvider {
+    private static final String TAG = "B_SourceListProvider";
     private SourceOpenHelper mDB;
 
     private static final String AUTHORITY = "org.csrdu.bayyina.sources.SourceListProvider";
@@ -17,7 +19,7 @@ public class SourceListProvider extends ContentProvider {
     public static final int SOURCE_ID = 110;
 
     private static final String SOURCES_BASE_PATH = "sources";
-    public static final Uri CONTENT_URI = Uri.parse("content" + AUTHORITY + "/" + SOURCES_BASE_PATH);
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + SOURCES_BASE_PATH);
 
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
                                                     + "/bayyina-source";
@@ -26,6 +28,8 @@ public class SourceListProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        Log.d(TAG, "Created SourceListContentProvider");
+
         mDB = new SourceOpenHelper(getContext());
         return true;
     }
@@ -35,14 +39,18 @@ public class SourceListProvider extends ContentProvider {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         queryBuilder.setTables(SourceOpenHelper.SOURCE_TABLE_NAME);
 
+        Log.d(TAG, "Query received.");
+
         int uriType = sURIMatcher.match(uri);
         switch (uriType) {
             case SOURCE_ID:
-                queryBuilder.appendWhere(SOURCE_ID + "="
+                Log.d(TAG, "Got request for source");
+                queryBuilder.appendWhere(mDB.SOURCE_ID + "="
                     + uri.getLastPathSegment());
                 break;
             case SOURCES:
                 // no filter
+                Log.d(TAG, "Got request for all sources");
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI");

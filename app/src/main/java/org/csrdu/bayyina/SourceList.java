@@ -1,18 +1,18 @@
 package org.csrdu.bayyina;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+
+import org.csrdu.bayyina.interfaces.GetSource;
+import org.csrdu.bayyina.interfaces.SetSource;
 
 
-public class BayanList extends Activity {
+public class SourceList extends Activity implements GetSource, SetSource {
+
+    Uri selected_source_uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +20,10 @@ public class BayanList extends Activity {
         setContentView(R.layout.activity_bayan_list);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new SourceListFragment())
                     .commit();
         }
+
     }
 
 
@@ -48,19 +49,17 @@ public class BayanList extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
 
-        public PlaceholderFragment() {
-        }
+    @Override
+    public Uri getSelectedSource() {
+        if(selected_source_uri != null)
+            return selected_source_uri;
+        else
+            throw new NullPointerException("Source not selected. Buggy program flow.");
+    }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_bayan_list, container, false);
-            return rootView;
-        }
+    @Override
+    public void OnSourceChanged(Uri source_uri) {
+        this.selected_source_uri = source_uri;
     }
 }
