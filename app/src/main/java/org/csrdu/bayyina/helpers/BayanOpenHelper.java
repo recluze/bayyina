@@ -23,6 +23,8 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
     public static final String BAYAN_SOURCE_ID = "SOURCE_ID";
     public static final String BAYAN_SERVER_ID = "SERVER_ID";
     public static final String BAYAN_STATUS = "STATUS";
+    public static final String BAYAN_STATUS_NEW = "NEW";
+    public static final String BAYAN_STATUS_DOWNLOADED = "DOWNLOADED";
 
     public static final String BAYAN_TABLE_CREATE =
             "CREATE TABLE " + BAYAN_TABLE_NAME + " (" +

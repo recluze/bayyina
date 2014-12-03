@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.List;
@@ -80,6 +81,11 @@ public class BayanListProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI");
         }
 
+        if (TextUtils.isEmpty(sortOrder)) {
+            sortOrder = BayanOpenHelper.BAYAN_ID + " DESC";
+            // Log.d(TAG, "Set sortOrder to: " + sortOrder);
+        }
+
         Cursor cursor = queryBuilder.query(mDB.getReadableDatabase(),
                 projection, selection, selectionArgs, null, null, sortOrder);
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
@@ -117,10 +123,26 @@ public class BayanListProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;
-    }
+    public int update(Uri uri, ContentValues values, String selection,
+                      String[] selectionArgs) {
+        int uriType = sURIMatcher.match(uri);
+        SQLiteDatabase sqlDB = mDB.getWritableDatabase();
 
+        int rowsUpdated =  0;
+        switch (uriType) {
+            case BAYAN_ID:
+                String id = uri.getLastPathSegment();
+                rowsUpdated = sqlDB.update(BayanOpenHelper.BAYAN_TABLE_NAME,
+                        values,
+                        BayanOpenHelper.BAYAN_ID + "=" + id,
+                        null);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsUpdated;
+    }
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 

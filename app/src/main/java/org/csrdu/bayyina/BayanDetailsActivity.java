@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.csrdu.bayyina.helpers.BayanHelper;
 import org.csrdu.bayyina.helpers.BayanListProvider;
 import org.csrdu.bayyina.helpers.BayanOpenHelper;
 import org.csrdu.bayyina.helpers.DownloadHelper;
@@ -45,11 +46,10 @@ public class BayanDetailsActivity extends Activity implements LoaderManager.Load
             Toast.makeText(this, "No source given. Cannot load bayan list. ", Toast.LENGTH_SHORT);
         }
 
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        Log.d(TAG, "Detailed activity shown for: " + selected_source_uri);
 
         getLoaderManager().initLoader(1, null, this);
         setContentView(R.layout.activity_bayan_details);
-
 
     }
 
@@ -79,7 +79,6 @@ public class BayanDetailsActivity extends Activity implements LoaderManager.Load
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.d(TAG, "Bayan List Loader onCreateLoader");
-        setProgressBarIndeterminateVisibility(true);
 
         String [] projection = new String[] {
                 BayanOpenHelper.BAYAN_ID,
@@ -118,7 +117,6 @@ public class BayanDetailsActivity extends Activity implements LoaderManager.Load
             Log.d(TAG, "Loaded data");
         }
 
-        setProgressBarIndeterminateVisibility(false);
     }
 
     @Override
@@ -136,6 +134,10 @@ public class BayanDetailsActivity extends Activity implements LoaderManager.Load
                         "Initiating download: " + url, Toast.LENGTH_LONG)
                         .show();
                 DownloadHelper.initiateDownload(this, url);
+
+                // update the bayan record to set status as downloaded
+                BayanHelper bh = new BayanHelper();
+                bh.updateBayanStatus(this, selected_source_uri, BayanOpenHelper.BAYAN_STATUS_DOWNLOADED);
         }
     }
 }

@@ -25,6 +25,7 @@ import android.widget.Toast;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.csrdu.bayyina.adapters.BayanCursorAdapter;
 import org.csrdu.bayyina.helpers.BayanListProvider;
 import org.csrdu.bayyina.helpers.BayanOpenHelper;
 import org.csrdu.bayyina.helpers.DownloadHelper;
@@ -41,7 +42,7 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
     private static final String TAG = "B_BayanFragment";
     private GetSource listener;
     private ListView mListView;
-    private SimpleCursorAdapter mAdapter;
+    private BayanCursorAdapter mAdapter;
     private Uri selected_source_uri;
     private ProgressDialog pDialog;
 
@@ -69,11 +70,16 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
         }
 
         mListView = (ListView) rootView.findViewById(R.id.bayans_listview);
-        mAdapter = new SimpleCursorAdapter(getActivity(),
+        /*
+        mAdapter = new BayanCursorAdapter(getActivity(),
                 R.layout.bayan_lv_item_layout,
                 null,
-                new String[] {BayanOpenHelper.BAYAN_TITLE, BayanOpenHelper.BAYAN_UPLOADED_ON},
-                new int[] {R.id.bayan_title, R.id.bayan_uploaded_on},
+                new String[] {BayanOpenHelper.BAYAN_TITLE, BayanOpenHelper.BAYAN_UPLOADED_ON, BayanOpenHelper.BAYAN_STATUS},
+                new int[] {R.id.bayan_title, R.id.bayan_uploaded_on, R.id.bayan_status},
+                0 );
+        */
+        mAdapter = new BayanCursorAdapter(getActivity(),
+                null,
                 0 );
 
         mListView.setAdapter(mAdapter);
@@ -96,7 +102,8 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
                 BayanOpenHelper.BAYAN_TITLE,
                 BayanOpenHelper.BAYAN_TAGS,
                 BayanOpenHelper.BAYAN_UPLOADED_ON,
-                BayanOpenHelper.BAYAN_URL
+                BayanOpenHelper.BAYAN_URL,
+                BayanOpenHelper.BAYAN_STATUS
         };
 
         Intent i = new Intent(getActivity(), BayanDetailsActivity.class);
@@ -115,7 +122,8 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
                 BayanOpenHelper.BAYAN_TITLE,
                 BayanOpenHelper.BAYAN_TAGS,
                 BayanOpenHelper.BAYAN_UPLOADED_ON,
-                BayanOpenHelper.BAYAN_URL
+                BayanOpenHelper.BAYAN_URL,
+                BayanOpenHelper.BAYAN_STATUS
         };
 
         String selected_source_id = this.selected_source_uri.getLastPathSegment();

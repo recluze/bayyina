@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="5dp" >
+    android:padding="0dp" >
 
     <ImageView
         android:id="@+id/bayan_icon"
@@ -16,15 +16,14 @@
 
     <TextView
         android:id="@+id/bayan_uploaded_on"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="26dip"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@id/bayan_icon"
         android:ellipsize="marquee"
         android:singleLine="true"
-        android:text="Description"
-        android:textSize="12sp" />
+        android:text="Uploaded On"
+        android:textSize="12sp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/bayan_icon" />
 
     <TextView
         android:id="@+id/bayan_title"
@@ -38,5 +37,20 @@
         android:gravity="center_vertical"
         android:text="Example application"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/bayan_status"
+        android:layout_width="wrap_content"
+        android:layout_height="12sp"
+        android:layout_alignWithParentIfMissing="true"
+        android:text="Status"
+        android:textSize="12sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="viewEnd"
+        android:gravity="end"
+        android:layout_below="@id/bayan_title"
+        android:layout_marginRight="96dp" />
 
 </RelativeLayout>
