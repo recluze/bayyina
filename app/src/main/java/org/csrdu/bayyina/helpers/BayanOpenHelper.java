@@ -21,6 +21,8 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
     public static final String BAYAN_UPLOADED_ON = "UPLOADED_ON";
     public static final String BAYAN_TAGS = "TAGS";
     public static final String BAYAN_SOURCE_ID = "SOURCE_ID";
+    public static final String BAYAN_SERVER_ID = "SERVER_ID";
+    public static final String BAYAN_STATUS = "STATUS";
 
     public static final String BAYAN_TABLE_CREATE =
             "CREATE TABLE " + BAYAN_TABLE_NAME + " (" +
@@ -28,7 +30,9 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
                     BAYAN_TITLE + " TEXT not null, " +
                     BAYAN_URL + " TEXT not null, " +
                     BAYAN_TAGS + " TEXT, " +
+                    BAYAN_STATUS + " TEXT, " +
                     BAYAN_UPLOADED_ON + " TEXT, " +
+                    BAYAN_SERVER_ID + " INTEGER, " +
                     BAYAN_SOURCE_ID + " INTEGER );";
 
     private static final String TAG = "B_BayanOpenHelper";
@@ -47,22 +51,19 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
 
 
         String sql;
-        sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SOURCE_ID + ") "
-                + " values ( 'Tasawwuf 1', 'http://tasawwuf.org/b/1','2014-11-01', 1 )";
+        sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SERVER_ID + "," + BAYAN_SOURCE_ID + "," + BAYAN_STATUS +") "
+                + " values ( 'Tasawwuf Bayan 1', 'http://tasawwuf.org/b/1','2014-11-01', 1111, 1, 'NEW' )";
         db.execSQL(sql);
 
-        sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SOURCE_ID + ") "
-                + " values ( 'Tasawwuf 2', 'http://tasawwuf.org/b/2','2014-12-01', 1 )";
+        sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SERVER_ID + "," + BAYAN_SOURCE_ID + "," + BAYAN_STATUS + ") "
+                + " values ( 'Tasawwuf Bayan 2', 'http://tasawwuf.org/b/2','2014-11-02', 1112, 1, 'NEW' )";
         db.execSQL(sql);
 
-        sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SOURCE_ID + ") "
-                + " values ( 'Suluk 1', 'http://suluk.org/b/1','2014-11-01', 2 )";
+        sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SERVER_ID + "," + BAYAN_SOURCE_ID + "," + BAYAN_STATUS + ") "
+                + " values ( 'Suluk Bayan 1', 'http://suluk.org/b/2','2014-11-02', 1112, 2, 'NEW' )";
         db.execSQL(sql);
 
-        sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SOURCE_ID + ") "
-                + " values ( 'Suluk 2', 'http://suluk.org/b/2','2014-12-01', 2 )";
 
-        Log.d(TAG, "Inserted Bayan List DB dummy data");
     }
 
     @Override

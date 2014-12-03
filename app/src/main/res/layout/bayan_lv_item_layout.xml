@@ -12,7 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="6dip"
         android:contentDescription="TODO"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/sound_wave_up" />
 
     <TextView
         android:id="@+id/bayan_uploaded_on"

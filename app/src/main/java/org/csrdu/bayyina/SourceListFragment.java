@@ -89,26 +89,11 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        /*
-        Toast.makeText(getActivity(),
-                "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                .show();
-        */
-
         // super.onItemClick(parent, view, position, id);
         Intent i = new Intent(getActivity(), BayanList.class);
-        Uri todoUri = Uri.parse(SourceListProvider.CONTENT_URI + "/" + id);
+        String todoUri = SourceListProvider.CONTENT_URI + "/" + id;
         i.putExtra(SourceListProvider.CONTENT_ITEM_TYPE, todoUri);
         startActivity(i);
-
-        /*
-        Toast.makeText(getActivity(), "Starting Bayan List for id: " + position, Toast.LENGTH_SHORT);
-        // listener.OnSourceChanged(todoUri);
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, new BayanListFragment())
-                .commit();
-                */
-
     }
 
     /*

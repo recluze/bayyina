@@ -44,15 +44,15 @@ public class SourceOpenHelper extends SQLiteOpenHelper {
 
         String sql;
         sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ " ) "
-                + " values ( 'Tasawwuf', 'http://tasawwuf.org','2014-11-01' )";
+                + " values ( 'Tasawwuf', 'http://csrdu.org/bayyina/tasawwuf','2014-11-01' )";
         db.execSQL(sql);
 
         sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ " ) "
-                + " values ( 'Suluk', 'http://suluk.com','2014-11-02' )";
+                + " values ( 'Suluk', 'http://csrdu.org/bayyina/suluk','2014-11-02' )";
         db.execSQL(sql);
 
         sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ " ) "
-                + " values ( 'Sunnah Academy', 'http://sunnahacademy.org','2014-11-03' )";
+                + " values ( 'Sunnah Academy', 'http://sunnahacademy.org/bayyina','2014-11-03' )";
         db.execSQL(sql);
 
         Log.d(TAG, "Inserted Source List DB dummy data");

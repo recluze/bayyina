@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.csrdu.bayyina" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/pen_drive"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -16,20 +18,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="org.csrdu.bayyina.BayanList"
             android:label="@string/bayan_list_activity_name" >
-
         </activity>
 
         <provider
-        android:authorities="org.csrdu.bayyina.sources.SourceListProvider"
-        android:name=".helpers.SourceListProvider"></provider>
+            android:name="org.csrdu.bayyina.helpers.SourceListProvider"
+            android:authorities="org.csrdu.bayyina.sources.SourceListProvider" />
         <provider
-            android:authorities="org.csrdu.bayyina.bayans.BayanListProvider"
-            android:name=".helpers.BayanListProvider"></provider>
+            android:name="org.csrdu.bayyina.helpers.BayanListProvider"
+            android:authorities="org.csrdu.bayyina.bayans.BayanListProvider" />
 
+        <activity
+            android:name="org.csrdu.bayyina.BayanDetailsActivity"
+            android:label="@string/title_activity_bayan_details" >
+        </activity>
     </application>
 
 </manifest>

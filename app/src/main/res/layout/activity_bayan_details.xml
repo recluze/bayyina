@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:columnCount="1"
+    android:orientation="horizontal" >
+
+    <TextView android:text="Bayan Title "
+        android:layout_marginRight="@dimen/details_label_sep_right"
+        android:textSize="@dimen/details_label_text_size"
+        android:padding="@dimen/details_label_padding"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:layout_gravity="fill_horizontal"
+        android:ellipsize="marquee"
+        android:padding="@dimen/details_label_padding"
+        android:id="@+id/tv_bayan_title"
+        android:text="..." />
+
+
+
+    <TextView android:text="Bayan URL "
+        android:textStyle="bold"
+        android:textSize="@dimen/details_label_text_size"
+        android:padding="@dimen/details_label_padding"
+        android:layout_marginRight="@dimen/details_label_sep_right"
+        />
+    <TextView android:text="..."
+        android:ellipsize="start"
+        android:padding="@dimen/details_label_padding"
+        android:id="@+id/tv_bayan_url"
+        android:layout_gravity="fill_horizontal" />
+
+
+    <TextView android:text="Uploaded On "
+        android:textStyle="bold"
+        android:textSize="@dimen/details_label_text_size"
+        android:padding="@dimen/details_label_padding"
+        android:layout_marginRight="@dimen/details_label_sep_right"
+        />
+    <TextView android:text="..."
+        android:ellipsize="marquee"
+        android:padding="@dimen/details_label_padding"
+        android:id="@+id/tv_bayan_uploaded_on"
+        android:layout_gravity="fill_horizontal" />
+
+
+
+    <TextView android:text="Tags "
+        android:textStyle="bold"
+        android:textSize="@dimen/details_label_text_size"
+        android:padding="@dimen/details_label_padding"
+        android:layout_marginRight="@dimen/details_label_sep_right"
+        />
+    <TextView android:text="..."
+        android:ellipsize="marquee"
+        android:id="@+id/tv_bayan_tags"
+        android:padding="@dimen/details_label_padding"
+        android:layout_gravity="fill_horizontal" />
+
+
+    <TextView android:text="Status "
+        android:textStyle="bold"
+        android:textSize="@dimen/details_label_text_size"
+        android:padding="@dimen/details_label_padding"
+        android:layout_marginRight="@dimen/details_label_sep_right"
+        />
+    <TextView android:text="..."
+        android:ellipsize="marquee"
+        android:id="@+id/tv_bayan_status"
+        android:padding="@dimen/details_label_padding"
+        android:layout_gravity="fill_horizontal" />
+
+
+    <Button
+        android:id="@+id/btn_bayan_details_download"
+        android:layout_columnSpan="2"
+        android:text="Download"
+        android:padding="@dimen/details_label_padding"
+        android:layout_gravity="fill_horizontal"
+        />
+
+    <!-- Button
+        android:layout_columnSpan="2"
+        android:layout_gravity="fill_horizontal"
+        android:text="Play"
+        /-->
+
+
+
+
+
+</GridLayout>
