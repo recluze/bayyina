@@ -1,18 +1,24 @@
 package org.csrdu.bayyina;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.csrdu.bayyina.helpers.DownloadHelper;
 import org.csrdu.bayyina.helpers.SourceHelper;
 import org.csrdu.bayyina.interfaces.GetSource;
 import org.csrdu.bayyina.interfaces.SetSource;
+import org.csrdu.bayyina.service.SourceUpdateChecker;
 
 
 public class SourceList extends Activity {
+
+    private static final String TAG = "B_SourceList";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,10 @@ public class SourceList extends Activity {
 
         SourceUpdaterTask task = new SourceUpdaterTask();
         task.execute((Void) null);
+
+        // start the service to check for updates
+        Intent intent = new Intent(getApplicationContext(), SourceUpdateChecker.class);
+        startService(intent);
 
     }
 
@@ -55,6 +65,11 @@ public class SourceList extends Activity {
     private class SourceUpdaterTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... x) {
+            if (! DownloadHelper.haveNetworkConnection(getBaseContext())) {
+                Log.i(TAG, "Don't have network connection. Not attempting to check for updates");
+                return null;
+            }
+            
             SourceHelper sh = new SourceHelper();
             sh.updateAllSourceStatuses(getBaseContext());
             return null;

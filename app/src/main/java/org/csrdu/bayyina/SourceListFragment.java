@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import org.csrdu.bayyina.adapters.SourceCursorAdapter;
+import org.csrdu.bayyina.helpers.DownloadHelper;
 import org.csrdu.bayyina.helpers.SourceHelper;
 import org.csrdu.bayyina.helpers.SourceListProvider;
 import org.csrdu.bayyina.helpers.SourceOpenHelper;
@@ -118,7 +119,11 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
 
         @Override
         protected Boolean doInBackground(Void ... urls) {
-            // TODO: check for network connectivity
+            if (! DownloadHelper.haveNetworkConnection(getActivity())) {
+                Log.i(TAG, "Don't have network connection. Not attempting to check for updates");
+                return null;
+            }
+
             Boolean response = true;
 
             try {

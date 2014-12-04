@@ -57,7 +57,7 @@ public class SourceListProvider extends ContentProvider {
                 Log.i(TAG, "Got request for all sources");
                 break;
             case SOURCE_SYNCED_ID:
-                Log.i(TAG, "Got request for source needs sync ");
+                Log.i(TAG, "Got request for source synced ");
                 queryBuilder.appendWhere(mDB.SOURCE_STATUS + "= '"
                         + SourceOpenHelper.SOURCE_STATUS_SYNCED +"'");
                 break;

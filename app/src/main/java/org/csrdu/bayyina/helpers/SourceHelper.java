@@ -20,7 +20,7 @@ import java.util.Locale;
 public class SourceHelper {
 
     private static final String TAG = "B_SourceHelper";
-    private int update_interval_in_minutes = 60;
+    private int update_interval_in_minutes = 1;
 
     public boolean updateAllSourceStatuses(Context context) {
         Log.i(TAG, "Updating bayan status: for all sources");
@@ -78,12 +78,13 @@ public class SourceHelper {
             Log.i(TAG, "Calculated diff in mins between [" + last_updated_date.toString() + "] and [" + cur_date.toString() + "] = [" + mins_diff + "]");
 
             if (mins_diff < update_interval_in_minutes) {
-                Log.i(TAG, "Checked the source a while ago. Ignoring refresh.");
+                Log.i(TAG, "Checked the source just a while ago. Ignoring refresh.");
                 return false;
             }
         }
 
         String last_change_time_str = "";
+        boolean is_updated = false;
         try {
             last_change_time_str = DownloadHelper.getSourceLastChangeTime(context, source_uri);
             Log.i(TAG, "Last change time: " + last_change_time_str);
@@ -96,15 +97,18 @@ public class SourceHelper {
 
             SourceHelper sh = new SourceHelper();
 
+            is_updated = false;
             if(force_update || laggin_behind_source > 0) {
                 Log.i(TAG, "Source seems updated. We need to sync it. Updating local status");
                 sh.markSourceAsNeedsSyncing(context, Uri.parse(source_uri));
+                is_updated = true;
             } else {
                 Log.i(TAG, "Source does not seem to have updated. Leaving as is.");
+                is_updated = false;
             }
 
             // if everything went well, save the last_updated_date in source record
-            sh.markSourceLastUpdatedOn(context, Uri.parse(source_uri), DateTimeHelper.getStandardizedDateFormat(cur_date));
+            sh.markSourceLastUpdatedOn(context, Uri.parse(source_uri), DateTimeHelper.getStandardizedDateFormat(last_change_time));
 
         } catch (JSONException e) {
             // ignore as JSON is bad ... can't do anything about it.
@@ -114,7 +118,7 @@ public class SourceHelper {
             Log.e(TAG, "Invalid date for source: " + source_uri + " at: " + url + " -- " + last_change_time_str);
             return false;
         }
-        return true;
+        return is_updated;
     }
 
     private boolean markSourceAsNeedsSyncing(Context context, Uri uri) {

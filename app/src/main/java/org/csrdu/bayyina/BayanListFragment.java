@@ -71,7 +71,7 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
 
         mListView = (ListView) rootView.findViewById(R.id.bayans_listview);
         /*
-        mAdapter = new BayanCursorAdapter(getActivity(),
+        mAdapter = new SimpleCursorAdapter(getActivity(),
                 R.layout.bayan_lv_item_layout,
                 null,
                 new String[] {BayanOpenHelper.BAYAN_TITLE, BayanOpenHelper.BAYAN_UPLOADED_ON, BayanOpenHelper.BAYAN_STATUS},
@@ -165,7 +165,11 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
 
         @Override
         protected Boolean doInBackground(String ... urls) {
-            // TODO: check for network connectivity
+            if (! DownloadHelper.haveNetworkConnection(getActivity())) {
+                Log.i(TAG, "Don't have network connection. Not attempting to check for updates");
+                return true;
+            }
+
             Boolean response = true;
             for (String url : urls) {
                 DownloadHelper.updateBayanList(getActivity(), url);
