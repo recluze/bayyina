@@ -85,7 +85,7 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
 
-        Log.d(TAG, "Loaded bayans fragment");
+        Log.i(TAG, "Loaded bayans fragment");
 
         loaderCallBack = this;
 
@@ -120,7 +120,7 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.d(TAG, "Bayan List Loader onCreateLoader");
+        Log.i(TAG, "Bayan List Loader onCreateLoader");
 
 
         String [] projection = new String[] {
@@ -140,7 +140,7 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(TAG, "Bayan List Loader onLoadFinished");
+        Log.i(TAG, "Bayan List Loader onLoadFinished");
 
         mAdapter.swapCursor(data);
     }

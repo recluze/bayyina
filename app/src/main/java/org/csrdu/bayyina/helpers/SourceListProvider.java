@@ -32,7 +32,7 @@ public class SourceListProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        Log.d(TAG, "Created SourceListContentProvider");
+        Log.i(TAG, "Created SourceListContentProvider");
 
         mDB = new SourceOpenHelper(getContext());
         return true;
@@ -43,21 +43,21 @@ public class SourceListProvider extends ContentProvider {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         queryBuilder.setTables(SourceOpenHelper.SOURCE_TABLE_NAME);
 
-        Log.d(TAG, "Query received.");
+        Log.i(TAG, "Query received.");
 
         int uriType = sURIMatcher.match(uri);
         switch (uriType) {
             case SOURCE_ID:
-                Log.d(TAG, "Got request for source");
+                Log.i(TAG, "Got request for source");
                 queryBuilder.appendWhere(mDB.SOURCE_ID + "="
                     + uri.getLastPathSegment());
                 break;
             case SOURCES:
                 // no filter
-                Log.d(TAG, "Got request for all sources");
+                Log.i(TAG, "Got request for all sources");
                 break;
             case SOURCE_SYNCED_ID:
-                Log.d(TAG, "Got request for source needs sync ");
+                Log.i(TAG, "Got request for source needs sync ");
                 queryBuilder.appendWhere(mDB.SOURCE_STATUS + "= '"
                         + SourceOpenHelper.SOURCE_STATUS_SYNCED +"'");
                 break;

@@ -61,7 +61,7 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
 
         loaderCallBack = this;
 
-        Log.d(TAG, "Loaded sources fragment");
+        Log.i(TAG, "Loaded sources fragment");
 
         DownloadSourceDetails task = new DownloadSourceDetails();
         task.execute((Void) null);
@@ -71,7 +71,7 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.d(TAG, "Source List Loader onCreateLoader");
+        Log.i(TAG, "Source List Loader onCreateLoader");
 
         Uri uri = SourceListProvider.CONTENT_URI;
         String [] projection = new String[] {
@@ -86,7 +86,7 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        Log.d(TAG, "Source List Loader onLoadFinished");
+        Log.i(TAG, "Source List Loader onLoadFinished");
 
         mAdapter.swapCursor(data);
     }

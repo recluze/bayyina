@@ -75,14 +75,14 @@ public class DownloadHelper {
     }
 
     public static void updateBayanList(Context context, String source_uri) {
-        Log.d(TAG, "Checking source for new bayans: " + source_uri);
+        Log.i(TAG, "Checking source for new bayans: " + source_uri);
 
         int source_id = Integer.parseInt(Uri.parse(source_uri).getLastPathSegment());
 
         String source_url = getSourceUrlFromUri(context, source_uri);
         String get_bayan_list_url = source_url + "/" + BayyinaApi.GET_BAYAN_LIST;
 
-        Log.d(TAG, "Updating bayan list from source: " + get_bayan_list_url);
+        Log.i(TAG, "Updating bayan list from source: " + get_bayan_list_url);
 
         DefaultHttpClient client = new DefaultHttpClient();
         HttpGet httpGet = new HttpGet(get_bayan_list_url);
@@ -101,7 +101,7 @@ public class DownloadHelper {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "Received response: \n" + response);
+        Log.i(TAG, "Received response: \n" + response);
         processBayanList(context, response, source_id);
 
         SourceHelper sh = new SourceHelper();
@@ -113,7 +113,7 @@ public class DownloadHelper {
         try {
             JSONArray json = new JSONArray(response);
 
-            Log.d(TAG, "Found total bayans: " + json.length());
+            Log.i(TAG, "Found total bayans: " + json.length());
 
             for (int i = 0; i < json.length(); i++) {
                 JSONObject json_data = json.getJSONObject(i);
@@ -151,7 +151,7 @@ public class DownloadHelper {
     }
 
     public static String getSourceLastChangeTime(Context context, String source_uri) throws JSONException {
-        Log.d(TAG, "Getting source last change time: " + source_uri);
+        Log.i(TAG, "Getting source last change time: " + source_uri);
 
         int source_id = Integer.parseInt(Uri.parse(source_uri).getLastPathSegment());
 
@@ -175,7 +175,7 @@ public class DownloadHelper {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "Received response: \n" + response);
+        Log.i(TAG, "Received response: \n" + response);
 
         JSONObject json = new JSONObject(response);
 

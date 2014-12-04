@@ -15,7 +15,7 @@ public class BayanHelper {
     private static final String TAG = "B_BayanHelper";
 
     public int updateBayanStatus(Context context, Uri uri, String newStatus) {
-        Log.d(TAG, "Updating bayan status: for ["+ uri.toString() +"] to" + newStatus);
+        Log.i(TAG, "Updating bayan status: for ["+ uri.toString() +"] to" + newStatus);
 
         ContentValues values = new ContentValues();
         values.put(BayanOpenHelper.BAYAN_STATUS, BayanOpenHelper.BAYAN_STATUS_DOWNLOADED);
@@ -26,7 +26,7 @@ public class BayanHelper {
     }
 
     public boolean saveBayanData(Context context, String title, String url, String tags, String uploadedOn, int server_id, int source_id) {
-        Log.d(TAG, String.format("Saving new bayan for source: [%s] Title[%s], url[%s], tags[%s], uploaded_on[%s]",
+        Log.i(TAG, String.format("Saving new bayan for source: [%s] Title[%s], url[%s], tags[%s], uploaded_on[%s]",
                 source_id, title, url, tags, uploadedOn));
 
         ContentValues values = new ContentValues();
@@ -64,7 +64,7 @@ public class BayanHelper {
         else
             id = -1;
 
-        Log.d(TAG, "Found bayan ID: " + id);
+        Log.i(TAG, "Found bayan ID: " + id);
         return id;
     }
 }

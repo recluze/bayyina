@@ -41,7 +41,7 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
 
     public BayanOpenHelper(Context context) {
         super(context, BAYAN_TABLE_NAME, null, DATABASE_VERSION);
-        Log.d(TAG, "Bayan List DB constructor");
+        Log.i(TAG, "Bayan List DB constructor");
         SQLiteDatabase db = getWritableDatabase();
     }
 
@@ -49,7 +49,7 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(BAYAN_TABLE_CREATE);
-        Log.d(TAG, "Created Bayan List DB");
+        Log.i(TAG, "Created Bayan List DB");
 
 
         String sql;
@@ -70,6 +70,6 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, "Upgraded Bayan List DB");
+        Log.i(TAG, "Upgraded Bayan List DB");
     }
 }

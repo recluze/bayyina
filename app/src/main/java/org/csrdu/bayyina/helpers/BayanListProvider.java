@@ -38,7 +38,7 @@ public class BayanListProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        Log.d(TAG, "Created BayanListContentProvider");
+        Log.i(TAG, "Created BayanListContentProvider");
 
         mDB = new BayanOpenHelper(getContext());
         return true;
@@ -49,26 +49,26 @@ public class BayanListProvider extends ContentProvider {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         queryBuilder.setTables(BayanOpenHelper.BAYAN_TABLE_NAME);
 
-        Log.d(TAG, "Query received.");
+        Log.i(TAG, "Query received.");
 
         int uriType = sURIMatcher.match(uri);
         switch (uriType) {
             case BAYAN_ID:
-                Log.d(TAG, "Got request for bayan");
+                Log.i(TAG, "Got request for bayan");
                 queryBuilder.appendWhere(mDB.BAYAN_ID + "="
                     + uri.getLastPathSegment());
                 break;
             case BAYANS:
                 // no filter
-                Log.d(TAG, "Got request for all bayans");
+                Log.i(TAG, "Got request for all bayans");
                 break;
             case SOURCE_ID:
-                Log.d(TAG, "Got request for source");
+                Log.i(TAG, "Got request for source");
                 queryBuilder.appendWhere(mDB.BAYAN_SOURCE_ID + "="
                         + uri.getLastPathSegment());
                 break;
             case SERVER_ID:
-                Log.d(TAG, "Got request for bayan server id");
+                Log.i(TAG, "Got request for bayan server id");
                 List<String> pathSegments = uri.getPathSegments();
                 String server_id = pathSegments.get(pathSegments.size()-1);
                 String source_id = pathSegments.get(pathSegments.size()-2);
@@ -83,7 +83,7 @@ public class BayanListProvider extends ContentProvider {
 
         if (TextUtils.isEmpty(sortOrder)) {
             sortOrder = BayanOpenHelper.BAYAN_ID + " DESC";
-            // Log.d(TAG, "Set sortOrder to: " + sortOrder);
+            // Log.i(TAG, "Set sortOrder to: " + sortOrder);
         }
 
         Cursor cursor = queryBuilder.query(mDB.getReadableDatabase(),
@@ -99,7 +99,7 @@ public class BayanListProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        Log.d(TAG, "Got request for bayan insertion");
+        Log.i(TAG, "Got request for bayan insertion");
 
         int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = mDB.getWritableDatabase();

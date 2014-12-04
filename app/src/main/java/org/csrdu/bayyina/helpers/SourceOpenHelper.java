@@ -36,7 +36,7 @@ public class SourceOpenHelper extends SQLiteOpenHelper {
 
     public SourceOpenHelper(Context context) {
         super(context, SOURCE_TABLE_NAME, null, DATABASE_VERSION);
-        Log.d(TAG, "Source List DB constructor");
+        Log.i(TAG, "Source List DB constructor");
         SQLiteDatabase db = getWritableDatabase();
     }
 
@@ -44,7 +44,7 @@ public class SourceOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL(SOURCE_TABLE_CREATE);
-        Log.d(TAG, "Created Source List DB");
+        Log.i(TAG, "Created Source List DB");
 
 
         String sql;
@@ -62,12 +62,12 @@ public class SourceOpenHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
         */
 
-        Log.d(TAG, "Inserted Source List DB dummy data");
+        Log.i(TAG, "Inserted Source List DB dummy data");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.d(TAG, "Upgraded Source List DB");
+        Log.i(TAG, "Upgraded Source List DB");
 
 
     }

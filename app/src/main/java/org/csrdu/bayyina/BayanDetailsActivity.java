@@ -46,7 +46,7 @@ public class BayanDetailsActivity extends Activity implements LoaderManager.Load
             Toast.makeText(this, "No source given. Cannot load bayan list. ", Toast.LENGTH_SHORT);
         }
 
-        Log.d(TAG, "Detailed activity shown for: " + selected_source_uri);
+        Log.i(TAG, "Detailed activity shown for: " + selected_source_uri);
 
         getLoaderManager().initLoader(1, null, this);
         setContentView(R.layout.activity_bayan_details);
@@ -78,7 +78,7 @@ public class BayanDetailsActivity extends Activity implements LoaderManager.Load
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.d(TAG, "Bayan List Loader onCreateLoader");
+        Log.i(TAG, "Bayan List Loader onCreateLoader");
 
         String [] projection = new String[] {
                 BayanOpenHelper.BAYAN_ID,
@@ -114,7 +114,7 @@ public class BayanDetailsActivity extends Activity implements LoaderManager.Load
             tv_bayan_uploaded_on.setText(data.getString(3));
             tv_bayan_status.setText(data.getString(5));
 
-            Log.d(TAG, "Loaded data");
+            Log.i(TAG, "Loaded data");
         }
 
     }
@@ -129,7 +129,7 @@ public class BayanDetailsActivity extends Activity implements LoaderManager.Load
         switch(v.getId()) {
             case R.id.btn_bayan_details_download:
                 String url = tv_bayan_url.getText().toString();
-                Log.d(TAG, "initiating download for: " + url);
+                Log.i(TAG, "initiating download for: " + url);
                 Toast.makeText(this,
                         "Initiating download: " + url, Toast.LENGTH_LONG)
                         .show();

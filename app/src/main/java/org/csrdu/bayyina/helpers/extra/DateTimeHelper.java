@@ -10,21 +10,29 @@ import java.util.TimeZone;
  * Created by nam on 12/3/14.
  */
 public class DateTimeHelper {
+
+
+    private static final String BAYYINA_STANDARD_DATE_FORMAT = "zzz yyyy-MM-dd HH:mm:ss";
+
+
+    public static String getStandardizedDateFormat(Date date) {
+        final SimpleDateFormat format = new SimpleDateFormat(BAYYINA_STANDARD_DATE_FORMAT);
+        return format.format(date);
+    }
+
     public static Date getCurrentDateTime(){
         Date cur_date = new Date();
         return cur_date;
     }
 
-    public static Date parseStringToDate(final String date) {
+    public static Date parseStringToDate(final String date) throws ParseException {
         final Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final SimpleDateFormat format = new SimpleDateFormat(BAYYINA_STANDARD_DATE_FORMAT);
         format.setCalendar(cal);
 
-        try {
-            return format.parse(date);
-        } catch (ParseException e) {
-            return null;
-        }
+
+        return format.parse(date);
+
     }
 
     public static int calculateDiffInMinutes(Date earlier_date, Date later_date) {
