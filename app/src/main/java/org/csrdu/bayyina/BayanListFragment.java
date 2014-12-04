@@ -96,6 +96,12 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().getLoaderManager().restartLoader(1, null, loaderCallBack);
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String [] projection = new String[] {
                 BayanOpenHelper.BAYAN_ID,
@@ -159,6 +165,7 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
 
         @Override
         protected Boolean doInBackground(String ... urls) {
+            // TODO: check for network connectivity
             Boolean response = true;
             for (String url : urls) {
                 DownloadHelper.updateBayanList(getActivity(), url);

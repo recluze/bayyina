@@ -1,23 +1,26 @@
 package org.csrdu.bayyina;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
+import org.csrdu.bayyina.adapters.SourceCursorAdapter;
+import org.csrdu.bayyina.helpers.SourceHelper;
 import org.csrdu.bayyina.helpers.SourceListProvider;
 import org.csrdu.bayyina.helpers.SourceOpenHelper;
 import org.csrdu.bayyina.interfaces.SetSource;
@@ -29,8 +32,11 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
 
     private static final String TAG = "B_SourcesFragment";
     private ListView mListView;
-    private SimpleCursorAdapter mAdapter;
+    private CursorAdapter mAdapter;
     private SetSource listener;
+    private ProgressDialog pDialog;
+
+    protected LoaderManager.LoaderCallbacks<Cursor> loaderCallBack;
 
     public SourceListFragment() {
     }
@@ -44,19 +50,21 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
         // return rootView;
 
         mListView = (ListView) rootView.findViewById(R.id.sources_listview);
-        mAdapter = new SimpleCursorAdapter(getActivity(),
-                R.layout.source_lv_item_layout,
+
+        // TODO: Create custom adapter to customize unread view
+        mAdapter = new SourceCursorAdapter(getActivity(),
                 null,
-                new String[] {SourceOpenHelper.SOURCE_TITLE, SourceOpenHelper.SOURCE_URL, SourceOpenHelper.SOURCE_LAST_UPDATED},
-                new int[] {R.id.source_title, R.id.source_last_updated},
                 0 );
 
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
-        getActivity().getLoaderManager().initLoader(0, null, this);
+
+        loaderCallBack = this;
 
         Log.d(TAG, "Loaded sources fragment");
 
+        DownloadSourceDetails task = new DownloadSourceDetails();
+        task.execute((Void) null);
 
         return rootView;
     }
@@ -70,7 +78,8 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
                 SourceOpenHelper.SOURCE_ID,
                 SourceOpenHelper.SOURCE_TITLE,
                 SourceOpenHelper.SOURCE_URL,
-                SourceOpenHelper.SOURCE_LAST_UPDATED
+                SourceOpenHelper.SOURCE_LAST_UPDATED,
+                SourceOpenHelper.SOURCE_STATUS
         };
         return new CursorLoader(getActivity(), uri, projection, null, null, null);
     }
@@ -95,24 +104,37 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
         i.putExtra(SourceListProvider.CONTENT_ITEM_TYPE, todoUri);
         startActivity(i);
     }
+/* Class for handling updation of bayans from a particular source
+     * Helpful tutorial here: http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html
+     */
 
-    /*
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (activity instanceof SetSource) {
-            listener = (SetSource) activity;
-        } else {
-            throw new ClassCastException(activity.toString()
-                    + " must implement SetSource");
+    private class DownloadSourceDetails extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Refreshing Source Information ....");
+            pDialog.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void ... urls) {
+            // TODO: check for network connectivity
+            Boolean response = true;
+
+            try {
+                SourceHelper sh = new SourceHelper();
+                response = sh.updateAllSourceStatuses(getActivity());
+            } catch (Exception e) {
+                response = false;
+            }
+
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            getActivity().getLoaderManager().initLoader(0, null, loaderCallBack);
+            pDialog.dismiss();
         }
     }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
-    }
-    */
-
 }

@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.Log;
@@ -17,9 +18,12 @@ public class SourceListProvider extends ContentProvider {
     private static final String AUTHORITY = "org.csrdu.bayyina.sources.SourceListProvider";
     public static final int SOURCES = 100;
     public static final int SOURCE_ID = 110;
+    public static final int SOURCE_SYNCED_ID = 120;
 
-    private static final String SOURCES_BASE_PATH = "sources";
+    public static final String SOURCES_BASE_PATH = "sources";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + SOURCES_BASE_PATH);
+
+    public static final String SOURCE_SYNCED_PATH = "is_synced";
 
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
                                                     + "/bayyina-source";
@@ -52,6 +56,11 @@ public class SourceListProvider extends ContentProvider {
                 // no filter
                 Log.d(TAG, "Got request for all sources");
                 break;
+            case SOURCE_SYNCED_ID:
+                Log.d(TAG, "Got request for source needs sync ");
+                queryBuilder.appendWhere(mDB.SOURCE_STATUS + "= '"
+                        + SourceOpenHelper.SOURCE_STATUS_SYNCED +"'");
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URI");
         }
@@ -79,13 +88,34 @@ public class SourceListProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;
+        int uriType = sURIMatcher.match(uri);
+        SQLiteDatabase sqlDB = mDB.getWritableDatabase();
+
+        int rowsUpdated =  0;
+        switch (uriType) {
+            case SOURCE_ID:
+                String id = uri.getLastPathSegment();
+                rowsUpdated = sqlDB.update(SourceOpenHelper.SOURCE_TABLE_NAME,
+                        values,
+                        SourceOpenHelper.SOURCE_ID + "=" + id,
+                        null);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsUpdated;
     }
 
 
+
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+
+
     static {
         sURIMatcher.addURI(AUTHORITY, SOURCES_BASE_PATH, SOURCES);
         sURIMatcher.addURI(AUTHORITY, SOURCES_BASE_PATH + "/#", SOURCE_ID);
+        sURIMatcher.addURI(AUTHORITY, SOURCES_BASE_PATH + "/" + SOURCE_SYNCED_PATH, SOURCE_SYNCED_ID);
     }
 }

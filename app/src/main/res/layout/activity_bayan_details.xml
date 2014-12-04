@@ -76,11 +76,9 @@
 
     <Button
         android:id="@+id/btn_bayan_details_download"
-        android:layout_columnSpan="2"
         android:text="Download"
-        android:padding="@dimen/details_label_padding"
-        android:layout_gravity="fill_horizontal"
-        />
+        android:padding="15sp"
+        android:layout_gravity="center_horizontal" />
 
     <!-- Button
         android:layout_columnSpan="2"

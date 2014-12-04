@@ -34,6 +34,8 @@
             android:name="org.csrdu.bayyina.BayanDetailsActivity"
             android:label="@string/title_activity_bayan_details" >
         </activity>
+
+        <service android:name=".service.SourceUpdateChecker" />
     </application>
 
 </manifest>

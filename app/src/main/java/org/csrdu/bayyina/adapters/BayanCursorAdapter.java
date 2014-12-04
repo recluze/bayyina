@@ -36,15 +36,16 @@ public class BayanCursorAdapter extends CursorAdapter {
         final ImageView iv_icon = (ImageView) view.findViewById(R.id.bayan_icon);
         final TextView tv_title = (TextView) view.findViewById(R.id.bayan_title);
         final TextView tv_uploaded_on = (TextView) view.findViewById(R.id.bayan_uploaded_on);
-        final TextView tv_status = (TextView) view.findViewById(R.id.bayan_status);
+        final TextView tv_tags = (TextView) view.findViewById(R.id.bayan_tags);
 
         final String title = cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_TITLE));
         final String uploaded_on = cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_UPLOADED_ON));
         final String status = cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_STATUS));
+        final String tags = cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_TAGS));
 
         tv_title.setText(title);
         tv_uploaded_on.setText(uploaded_on);
-        tv_status.setText(status);
+        tv_tags.setText(tags);
 
 
         if(status.equals(BayanOpenHelper.BAYAN_STATUS_NEW)) {

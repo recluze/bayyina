@@ -2,17 +2,17 @@ package org.csrdu.bayyina;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.csrdu.bayyina.helpers.SourceHelper;
 import org.csrdu.bayyina.interfaces.GetSource;
 import org.csrdu.bayyina.interfaces.SetSource;
 
 
 public class SourceList extends Activity {
-
-    Uri selected_source_uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,9 @@ public class SourceList extends Activity {
                     .add(R.id.container, new SourceListFragment())
                     .commit();
         // }
+
+        SourceUpdaterTask task = new SourceUpdaterTask();
+        task.execute((Void) null);
 
     }
 
@@ -47,5 +50,15 @@ public class SourceList extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class SourceUpdaterTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... x) {
+            SourceHelper sh = new SourceHelper();
+            sh.updateAllSourceStatuses(getBaseContext());
+            return null;
+        }
+
     }
 }

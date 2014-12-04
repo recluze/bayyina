@@ -20,11 +20,16 @@ public class SourceOpenHelper extends SQLiteOpenHelper {
     public static final String SOURCE_URL = "URL";
     public static final String SOURCE_LAST_UPDATED = "LAST_UPDATED";
 
+    public static final String SOURCE_STATUS = "STATUS";
+    public static final String SOURCE_STATUS_SYNCED  = "SYNCED";
+    public static final String SOURCE_STATUS_NEEDS_SYNCING = "NEEDS_SYNCING";
+
     public static final String SOURCE_TABLE_CREATE =
             "CREATE TABLE " + SOURCE_TABLE_NAME + " (" +
                     SOURCE_ID + " integer primary key autoincrement, " +
                     SOURCE_TITLE + " TEXT not null, " +
                     SOURCE_URL + " TEXT not null, " +
+                    SOURCE_STATUS + " TEXT not null, " +
                     SOURCE_LAST_UPDATED + " TEXT);";
 
     private static final String TAG = "B_SourceOpenHelper";
@@ -43,17 +48,19 @@ public class SourceOpenHelper extends SQLiteOpenHelper {
 
 
         String sql;
-        sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ " ) "
-                + " values ( 'Tasawwuf', 'http://csrdu.org/bayyina/tasawwuf','2014-11-01' )";
+        sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ "," + SOURCE_STATUS +" ) "
+                + " values ( 'Tasawwuf', 'http://csrdu.org/bayyina/tasawwuf','2014-12-03 12:02:02', '"+SOURCE_STATUS_NEEDS_SYNCING+"' )";
         db.execSQL(sql);
 
-        sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ " ) "
-                + " values ( 'Suluk', 'http://csrdu.org/bayyina/suluk','2014-11-02' )";
+        /*
+        sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ "," + SOURCE_STATUS +" ) "
+                + " values ( 'Suluk', 'http://csrdu.org/bayyina/suluk','2014-12-03 13:05:01', '"+SOURCE_STATUS_SYNCED+"' )";
         db.execSQL(sql);
 
-        sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ " ) "
-                + " values ( 'Sunnah Academy', 'http://sunnahacademy.org/bayyina','2014-11-03' )";
+        sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ "," + SOURCE_STATUS +" ) "
+                + " values ( 'Sunnah Academy', 'http://sunnahacademy.org/bayyina','2014-12-03 01:05:02', '"+SOURCE_STATUS_SYNCED+"' )";
         db.execSQL(sql);
+        */
 
         Log.d(TAG, "Inserted Source List DB dummy data");
     }

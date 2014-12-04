@@ -70,8 +70,8 @@ public class DownloadHelper {
 
         };
 
-        context.registerReceiver(receiver, new IntentFilter(
-                DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        // context.registerReceiver(receiver, new IntentFilter(
+        //        DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     public static void updateBayanList(Context context, String source_uri) {
@@ -104,6 +104,8 @@ public class DownloadHelper {
         Log.d(TAG, "Received response: \n" + response);
         processBayanList(context, response, source_id);
 
+        SourceHelper sh = new SourceHelper();
+        sh.markSourceAsSynced(context, Uri.parse(source_uri));
     }
 
     private static boolean processBayanList(Context context, String response, int source_id) {
@@ -148,5 +150,38 @@ public class DownloadHelper {
         return url.replaceAll("/$", "");
     }
 
+    public static String getSourceLastChangeTime(Context context, String source_uri) throws JSONException {
+        Log.d(TAG, "Getting source last change time: " + source_uri);
+
+        int source_id = Integer.parseInt(Uri.parse(source_uri).getLastPathSegment());
+
+        String source_url = getSourceUrlFromUri(context, source_uri);
+        String get_source_details_url = source_url + "/" + BayyinaApi.GET_SOURCE_DETAILS;
+
+        DefaultHttpClient client = new DefaultHttpClient();
+        HttpGet httpGet = new HttpGet(get_source_details_url);
+        String response = "";
+        try {
+            HttpResponse execute = client.execute(httpGet);
+            InputStream content = execute.getEntity().getContent();
+
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
+            String s = "";
+            while ((s = buffer.readLine()) != null) {
+                response += s;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Log.d(TAG, "Received response: \n" + response);
+
+        JSONObject json = new JSONObject(response);
+
+        String last_updated = json.getString("last_updated_on");
+        return last_updated;
+
+    }
 
 }
