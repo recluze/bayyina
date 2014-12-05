@@ -1,7 +1,7 @@
 <?php 
 	require_once(dirname(__FILE__) . '/functions.php'); 
 
-	$sql = 'SELECT * FROM bayans ORDER BY ID ASC';
+	$sql = 'SELECT * FROM bayans WHERE active > 0 ORDER BY ID ASC';
 
 	$all_bayans = array(); 
 

@@ -5,6 +5,7 @@
     $title_error = ""; 
     $url_error = ""; 
     $uploaded_on_error = ""; 
+    $active = false; 
 
     $id = null;
     if(!empty($_GET['id'])) {
@@ -25,6 +26,7 @@
         $url  = $_POST['url'];
         $tags    = $_POST['tags'];
         $uploaded_on = $_POST['uploaded_on'];
+        $active = (isset($_POST['active']) && $_POST['active'] == 'on'); 
     
         // validate input
         $valid = true;
@@ -51,9 +53,9 @@
         // insert data
         if ($valid) {
             $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "Update bayans set `title`=?, `url`=?, `tags`=?, `uploaded_on`=?, `timestamp`=CURRENT_TIMESTAMP where id=?";
+            $sql = "Update bayans set `title`=?, `url`=?, `tags`=?, `uploaded_on`=?, `timestamp`=CURRENT_TIMESTAMP, `active` = ? where id=?";
             $stmt = $PDO->prepare($sql);
-            $stmt->execute(array($title, $url, $tags, $uploaded_on, $id));
+            $stmt->execute(array($title, $url, $tags, $uploaded_on, $active, $id));
             $PDO = null;
             header("Location: list.php");
         }
@@ -67,10 +69,11 @@
         if (empty($data)){
             header("Location: list.php");
         }
-        $title = $data['title'];
+        $title = stripslashes($data['title']);
         $url  = $data['url'];
         $tags    = $data['tags'];
         $uploaded_on = date('Y-m-d', strtotime($data['uploaded_on']));
+        $active = $data['active']; 
     }
 ?>
 
@@ -124,8 +127,17 @@
                 
             </div>
             
+            <div class="form-group">
+                <label for="inputActive">Active</label>
+                <input type="checkbox" 
+                        id="inputActive"
+                        <?php echo ($active ? 'checked' : ''); ?> 
+                        name="active">
+
+            </div>
+
             <div class="form-actions">
-                <button type="submit" class="btn btn-success">Create</button>
+                <button type="submit" class="btn btn-success">Update</button>
                 <a class="btn btn-default" href="list.php">Back</a>
             </div>
         </form>

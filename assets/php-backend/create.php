@@ -5,6 +5,8 @@
     $title_error = ""; 
     $url_error = ""; 
     $uploaded_on_error = ""; 
+    $active = false; 
+
         
     // default to today 
     if(empty($uploaded_on)) 
@@ -21,6 +23,7 @@
         $url  = $_POST['url'];
         $tags    = $_POST['tags'];
         $uploaded_on = $_POST['uploaded_on'];
+        $active = (isset($_POST['active']) && $_POST['active'] == 'on'); 
     
         // validate input
         $valid = true;
@@ -46,12 +49,25 @@
                 
         // insert data
         if ($valid) {
-            $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO bayans (title, url, tags, uploaded_on) values(?, ?, ?, ?)";
-            $stmt = $PDO->prepare($sql);
-            $stmt->execute(array($title, $url, $tags, $uploaded_on));
-            $PDO = null;
-            header("Location: list.php");
+
+            // first check if we already have this url 
+            $sql = "SELECT title FROM bayans WHERE url = '$url'";
+            $already_saved = false; 
+            foreach ($PDO->query($sql) as $row) { 
+                $existing_url_for_title = $row['title']; 
+                $already_saved = true; 
+                break; 
+            } 
+            if(!$already_saved) {
+                $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $sql = "INSERT INTO bayans (title, url, tags, uploaded_on, active) values(?, ?, ?, ?, ?)";
+                $stmt = $PDO->prepare($sql);
+                $stmt->execute(array($title, $url, $tags, $uploaded_on, $active));
+                $PDO = null;
+                header("Location: list.php");
+            } else { 
+                $url_error = "That URL is already in the record for \"$existing_url_for_title\""; 
+            }
         }
     }
 ?>
@@ -104,6 +120,15 @@
                         name="uploaded_on" placeholder="Uploaded On">
             <span class="help-block"><?php echo $uploaded_on_error;?></span>
                 
+            </div>
+
+            <div class="form-group">
+                <label for="inputActive">Active</label>
+                <input type="checkbox" 
+                        id="inputActive"
+                        <?php echo ($active ? 'checked' : ''); ?> 
+                        name="active">
+
             </div>
             
             <div class="form-actions">
