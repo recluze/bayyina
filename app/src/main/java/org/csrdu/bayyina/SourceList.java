@@ -6,8 +6,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.csrdu.bayyina.helpers.DownloadHelper;
 import org.csrdu.bayyina.helpers.SourceHelper;
@@ -43,7 +46,7 @@ public class SourceList extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_bayan_list, menu);
+        getMenuInflater().inflate(R.menu.menu_source_list, menu);
         return true;
     }
 
@@ -61,6 +64,8 @@ public class SourceList extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     private class SourceUpdaterTask extends AsyncTask<Void, Void, Void> {
         @Override

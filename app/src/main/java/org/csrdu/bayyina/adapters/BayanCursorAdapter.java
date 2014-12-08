@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import org.csrdu.bayyina.R;
 import org.csrdu.bayyina.helpers.BayanOpenHelper;
+import org.csrdu.bayyina.helpers.extra.DateTimeHelper;
 
 /**
  * Created by nam on 12/3/14.
@@ -39,7 +40,10 @@ public class BayanCursorAdapter extends CursorAdapter {
         final TextView tv_tags = (TextView) view.findViewById(R.id.bayan_tags);
 
         final String title = cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_TITLE));
-        final String uploaded_on = cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_UPLOADED_ON));
+        final String uploaded_on = DateTimeHelper.getShortDateFormat(
+                            cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_UPLOADED_ON)),
+                            "yyyy-MM-dd");
+
         final String status = cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_STATUS));
         final String tags = cursor.getString(cursor.getColumnIndex(BayanOpenHelper.BAYAN_TAGS));
 
@@ -49,10 +53,11 @@ public class BayanCursorAdapter extends CursorAdapter {
 
 
         if(status.equals(BayanOpenHelper.BAYAN_STATUS_NEW)) {
-            tv_title.setTypeface(null, Typeface.BOLD);
+            // tv_title.setTypeface(null, Typeface.BOLD);
+            tv_title.setTextColor(context.getResources().getColor(android.R.color.black));
             iv_icon.setImageResource(R.drawable.sound_wave_up_fresh);
         } else {
-            tv_title.setTypeface(null, Typeface.NORMAL);
+            tv_title.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
             iv_icon.setImageResource(R.drawable.sound_wave_up);
         }
 

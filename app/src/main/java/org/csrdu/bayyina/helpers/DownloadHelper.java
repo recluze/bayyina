@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -36,6 +38,23 @@ public class DownloadHelper {
         final DownloadManager dm = (DownloadManager) context.getSystemService(context.DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(uri));
+
+        String filename = Uri.parse(uri).getLastPathSegment();
+        request.allowScanningByMediaScanner();
+        request.setDescription("Bayyina Download");
+        request.setTitle(filename);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        // use external storage if available
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            // File sdcard = Environment.getExternalStorageDirectory();
+            // File dir = new File(sdcard.getAbsolutePath() + "/bayyina/");
+            // dir.mkdir();
+            request.setDestinationInExternalPublicDir("bayyina/", filename);
+        }
+        request.setVisibleInDownloadsUi(true);
+
         final long enqueue = dm.enqueue(request);
 
 

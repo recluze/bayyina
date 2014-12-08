@@ -151,4 +151,10 @@ public class SourceHelper {
 
         return (res > 0);
     }
+
+    public boolean deleteSourceById(Context context, long id) {
+        String where = "_id = " + id;
+        int res = context.getContentResolver().delete(SourceListProvider.CONTENT_URI, where, null);
+        return (res > 0);
+    }
 }

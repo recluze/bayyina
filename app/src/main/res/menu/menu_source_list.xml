@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".SourceList">
+    <item android:id="@+id/menu_source_update_all"
+        android:title="Update All"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom" />
+    <item android:id="@+id/menu_source_add_new"
+        android:title="Add New"
+        android:orderInCategory="80"
+        android:showAsAction="always" />
+</menu>

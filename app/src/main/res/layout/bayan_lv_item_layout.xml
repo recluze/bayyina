@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="5dp" >
+    android:layout_margin="0dp"
+    android:padding="0dp" >
 
     <ImageView
         android:id="@+id/bayan_icon"
@@ -10,23 +11,26 @@
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="6dip"
+        android:layout_marginLeft="-6dp"
         android:contentDescription="TODO"
         android:src="@drawable/sound_wave_up" />
 
     <TextView
         android:id="@+id/bayan_uploaded_on"
         android:layout_width="wrap_content"
-        android:layout_height="15sp"
+        android:layout_height="wrap_content"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="Uploaded On"
         android:textSize="12sp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/bayan_icon"/>
+        android:layout_marginRight="12dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/bayan_tags"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="15sp"
         android:ellipsize="marquee"
@@ -39,18 +43,30 @@
 
     <TextView
         android:id="@+id/bayan_title"
-        android:layout_margin="0dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bayan_uploaded_on"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/bayan_icon"
         android:gravity="center_vertical"
+        android:textColor="@android:color/darker_gray"
         android:text="Example application"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_centerVertical="true"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_marginRight="6dp"
+        android:layout_toRightOf="@+id/bayan_icon"
+        android:layout_toLeftOf="@+id/bayan_uploaded_on"
+        android:layout_toStartOf="@+id/bayan_uploaded_on" />
 
+    <View android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/black_white_gradient"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+         />
 
 
 </RelativeLayout>

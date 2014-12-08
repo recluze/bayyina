@@ -1,9 +1,11 @@
 package org.csrdu.bayyina;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -11,7 +13,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -52,13 +57,14 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
 
         mListView = (ListView) rootView.findViewById(R.id.sources_listview);
 
-        // TODO: Create custom adapter to customize unread view
         mAdapter = new SourceCursorAdapter(getActivity(),
                 null,
                 0 );
 
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
+        mListView.setOnCreateContextMenuListener(this);
+        registerForContextMenu(mListView);
 
         loaderCallBack = this;
 
@@ -105,7 +111,56 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
         i.putExtra(SourceListProvider.CONTENT_ITEM_TYPE, todoUri);
         startActivity(i);
     }
-/* Class for handling updation of bayans from a particular source
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        Log.i(TAG, "onCreateContextMenu called for source list view.");
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_souce_list_context, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        final AdapterView.AdapterContextMenuInfo info;
+        try {
+            info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        } catch (ClassCastException e) {
+            Log.e("", "bad menuInfo", e);
+            return false;
+        }
+
+
+        switch (item.getItemId()) {
+            case R.id.menu_source_context_delete_source:
+                Log.i(TAG, "Delete source requested");
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                Log.i(TAG, "Requesting deletion of source: " + info.id);
+                                SourceHelper sh = new SourceHelper();
+                                sh.deleteSourceById(getActivity(), info.id);
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Are you sure you want to delete this source?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    /* Class for handling updation of bayans from a particular source
      * Helpful tutorial here: http://www.vogella.com/tutorials/AndroidBackgroundProcessing/article.html
      */
 
