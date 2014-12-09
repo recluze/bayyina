@@ -11,6 +11,8 @@
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
         android:layout_marginLeft="-6dp"
         android:contentDescription="TODO"
         android:src="@drawable/sound_wave_up" />

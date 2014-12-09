@@ -18,11 +18,38 @@ public class BayanHelper {
         Log.i(TAG, "Updating bayan status: for ["+ uri.toString() +"] to" + newStatus);
 
         ContentValues values = new ContentValues();
-        values.put(BayanOpenHelper.BAYAN_STATUS, BayanOpenHelper.BAYAN_STATUS_DOWNLOADED);
+        values.put(BayanOpenHelper.BAYAN_STATUS, newStatus);
 
         int res = context.getContentResolver().update(uri, values, null, null);
 
         return res;
+    }
+
+    public int updateAllBayansStatus(Context context, Uri source_uri, String oldStatus, String newStatus) {
+        Uri uri = BayanListProvider.CONTENT_URI;
+        String [] projection = new String[] {
+                BayanOpenHelper.BAYAN_ID,
+                BayanOpenHelper.BAYAN_STATUS
+        };
+
+        String source_id = source_uri.getLastPathSegment();
+        String selection = BayanOpenHelper.BAYAN_SOURCE_ID + "=" + source_id;
+
+        if(oldStatus != null) {
+            selection += " AND " + BayanOpenHelper.BAYAN_STATUS + "='" + oldStatus +"'";
+        }
+
+        Cursor cursor = context.getContentResolver().query(uri, projection, selection, null, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                int id = cursor.getInt(0);
+                Uri update_uri = Uri.parse(BayanListProvider.CONTENT_URI.toString() + "/" + id);
+                updateBayanStatus(context, update_uri, newStatus);
+            } while(cursor.moveToNext());
+        }
+
+        return 0;
     }
 
     public boolean saveBayanData(Context context, String title, String url, String tags, String uploadedOn, int server_id, int source_id) {

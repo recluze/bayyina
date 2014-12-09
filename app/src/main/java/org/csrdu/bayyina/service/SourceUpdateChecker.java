@@ -48,7 +48,6 @@ public class SourceUpdateChecker extends Service {
                     public void run() {
                         try {
                             DownloaderTask performBackgroundTask = new DownloaderTask();
-                            // PerformBackgroundTask this class is the class that extends AsynchTask
                             performBackgroundTask.execute();
                         } catch (Exception e) {
                         }

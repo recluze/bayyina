@@ -7,5 +7,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bayan_list_activity_name">Bayan List</string>
     <string name="title_activity_bayan_details">Bayan Details</string>
+    <string name="title_activity_source_metadata">Source Metadata</string>
 
 </resources>

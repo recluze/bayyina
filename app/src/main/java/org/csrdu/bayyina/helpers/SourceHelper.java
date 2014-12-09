@@ -152,9 +152,31 @@ public class SourceHelper {
         return (res > 0);
     }
 
-    public boolean deleteSourceById(Context context, long id) {
-        String where = "_id = " + id;
+    public boolean deleteSourceById(Context context, Long id) {
+        String where = "_id = " + ((long) id);
         int res = context.getContentResolver().delete(SourceListProvider.CONTENT_URI, where, null);
+        return (res > 0);
+    }
+
+    public boolean saveSource(Context context, Long id, String title, String url) {
+
+        ContentValues values = new ContentValues();
+        values.put(SourceOpenHelper.SOURCE_STATUS, SourceOpenHelper.SOURCE_STATUS_NEEDS_SYNCING);
+        values.put(SourceOpenHelper.SOURCE_TITLE, title);
+        values.put(SourceOpenHelper.SOURCE_URL, url);
+        values.put(SourceOpenHelper.SOURCE_LAST_UPDATED, "00"); // this will be set when first updated
+
+        int res;
+        if(id == null) {
+            // insert
+            Uri new_uri = context.getContentResolver().insert(SourceListProvider.CONTENT_URI, values);
+            res = Integer.parseInt(new_uri.getLastPathSegment());
+        } else {
+            // update
+            String where = "_id = " + id;
+            res = context.getContentResolver().update(SourceListProvider.CONTENT_URI, values, where, null);
+        }
+
         return (res > 0);
     }
 }

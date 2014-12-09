@@ -1,6 +1,7 @@
 package org.csrdu.bayyina;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -36,12 +37,17 @@ public class SourceList extends Activity {
         SourceUpdaterTask task = new SourceUpdaterTask();
         task.execute((Void) null);
 
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
         // start the service to check for updates
         Intent intent = new Intent(getApplicationContext(), SourceUpdateChecker.class);
         startService(intent);
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,6 +66,12 @@ public class SourceList extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.menu_source_add_new) {
+            Intent i = new Intent(this, SourceMetadataActivity.class);
+            startActivity(i);
+        } else if (id == R.id.menu_source_update_all) {
+            SourceUpdaterTask task = new SourceUpdaterTask();
+            task.execute((Void) null);
         }
 
         return super.onOptionsItemSelected(item);
@@ -68,6 +80,17 @@ public class SourceList extends Activity {
 
 
     private class SourceUpdaterTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog pDialog;
+
+        /*
+        @Override
+        protected void onPreExecute() {
+            pDialog = new ProgressDialog(getBaseContext());
+            pDialog.setMessage("Updating Sources ....");
+            pDialog.show();
+        }
+        */
+
         @Override
         protected Void doInBackground(Void... x) {
             if (! DownloadHelper.haveNetworkConnection(getBaseContext())) {
@@ -79,6 +102,13 @@ public class SourceList extends Activity {
             sh.updateAllSourceStatuses(getBaseContext());
             return null;
         }
+
+        /*
+        @Override
+        protected void onPostExecute(Void nothing) {
+            pDialog.dismiss();
+        }
+        */
 
     }
 }

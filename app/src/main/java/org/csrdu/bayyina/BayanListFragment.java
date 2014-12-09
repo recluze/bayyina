@@ -98,7 +98,12 @@ public class BayanListFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().getLoaderManager().restartLoader(1, null, loaderCallBack);
+        try {
+            getActivity().getLoaderManager().restartLoader(1, null, loaderCallBack);
+        } catch(NullPointerException e) {
+            Log.e(TAG, "NPE in onResume");
+            e.printStackTrace();
+        }
     }
 
     @Override

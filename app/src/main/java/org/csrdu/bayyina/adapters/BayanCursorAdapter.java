@@ -55,10 +55,12 @@ public class BayanCursorAdapter extends CursorAdapter {
         if(status.equals(BayanOpenHelper.BAYAN_STATUS_NEW)) {
             // tv_title.setTypeface(null, Typeface.BOLD);
             tv_title.setTextColor(context.getResources().getColor(android.R.color.black));
-            iv_icon.setImageResource(R.drawable.sound_wave_up_fresh);
+            tv_uploaded_on.setTextColor(context.getResources().getColor(android.R.color.black));
+            iv_icon.setImageResource(R.drawable.star_green);
         } else {
             tv_title.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
-            iv_icon.setImageResource(R.drawable.sound_wave_up);
+            tv_uploaded_on.setTextColor(context.getResources().getColor(android.R.color.darker_gray));
+            iv_icon.setImageResource(R.drawable.star_grey);
         }
 
     }

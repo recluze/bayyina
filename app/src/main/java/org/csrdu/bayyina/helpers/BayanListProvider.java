@@ -141,6 +141,7 @@ public class BayanListProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
+
         return rowsUpdated;
     }
 

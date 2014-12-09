@@ -156,6 +156,12 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
                 builder.setMessage("Are you sure you want to delete this source?").setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
                 return true;
+            case R.id.menu_source_context_modify_source:
+                Intent i = new Intent(getActivity(), SourceMetadataActivity.class);
+                String editing_id = Long.toString(info.id);
+                i.putExtra(SourceListProvider.CONTENT_ITEM_TYPE, editing_id);
+                startActivity(i);
+                return true;
         }
         return super.onContextItemSelected(item);
     }

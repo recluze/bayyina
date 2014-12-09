@@ -78,7 +78,22 @@ public class SourceListProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        return null;
+        Log.i(TAG, "Got request for source insertion");
+
+        int uriType = sURIMatcher.match(uri);
+        SQLiteDatabase sqlDB = mDB.getWritableDatabase();
+
+        int rowsDeleted = 0;
+        long id = 0;
+        switch (uriType) {
+            case SOURCES:
+                id = sqlDB.insert(SourceOpenHelper.SOURCE_TABLE_NAME, null, values);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return Uri.parse(SOURCES_BASE_PATH + "/" + id);
     }
 
     @Override
@@ -110,6 +125,12 @@ public class SourceListProvider extends ContentProvider {
                 rowsUpdated = sqlDB.update(SourceOpenHelper.SOURCE_TABLE_NAME,
                         values,
                         SourceOpenHelper.SOURCE_ID + "=" + id,
+                        null);
+                break;
+            case SOURCES:
+                rowsUpdated = sqlDB.update(SourceOpenHelper.SOURCE_TABLE_NAME,
+                        values,
+                        selection,
                         null);
                 break;
             default:
