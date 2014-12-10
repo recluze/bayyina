@@ -27,6 +27,8 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
     public static final String BAYAN_STATUS_DOWNLOADED = "DOWNLOADED";
     public static final String BAYAN_STATUS_MARKED_DOWNLOADED = "MARKED AS DOWNLOADED";
 
+    public static final String BAYAN_LOCAL_URI = "LOCAL_URI";
+
     public static final String BAYAN_TABLE_CREATE =
             "CREATE TABLE " + BAYAN_TABLE_NAME + " (" +
                     BAYAN_ID + " integer primary key autoincrement, " +
@@ -36,7 +38,8 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
                     BAYAN_STATUS + " TEXT, " +
                     BAYAN_UPLOADED_ON + " TEXT, " +
                     BAYAN_SERVER_ID + " INTEGER, " +
-                    BAYAN_SOURCE_ID + " INTEGER );";
+                    BAYAN_SOURCE_ID + " INTEGER, " +
+                    BAYAN_LOCAL_URI + " TEXT );";
 
     private static final String TAG = "B_BayanOpenHelper";
 
