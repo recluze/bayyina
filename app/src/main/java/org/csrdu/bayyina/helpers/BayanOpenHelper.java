@@ -59,15 +59,15 @@ public class BayanOpenHelper extends SQLiteOpenHelper {
         String sql;
         sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SERVER_ID + "," + BAYAN_SOURCE_ID + "," + BAYAN_STATUS +") "
                 + " values ( 'Tasawwuf Bayan 1', 'http://tasawwuf.org/b/1','2014-11-01', 1111, 1, 'NEW' )";
-        db.execSQL(sql);
+        // db.execSQL(sql);
 
         sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SERVER_ID + "," + BAYAN_SOURCE_ID + "," + BAYAN_STATUS + ") "
                 + " values ( 'Tasawwuf Bayan 2', 'http://tasawwuf.org/b/2','2014-11-02', 1112, 1, 'NEW' )";
-        db.execSQL(sql);
+        // db.execSQL(sql);
 
         sql = "insert into " + BAYAN_TABLE_NAME + " ( " + BAYAN_TITLE + "," + BAYAN_URL + "," + BAYAN_UPLOADED_ON + "," + BAYAN_SERVER_ID + "," + BAYAN_SOURCE_ID + "," + BAYAN_STATUS + ") "
                 + " values ( 'Suluk Bayan 1', 'http://suluk.org/b/2','2014-11-02', 1112, 2, 'NEW' )";
-        db.execSQL(sql);
+        // db.execSQL(sql);
 
 
     }

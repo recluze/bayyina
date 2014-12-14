@@ -71,8 +71,10 @@ public class SourceListFragment extends Fragment implements LoaderManager.Loader
         Log.i(TAG, "Loaded sources fragment");
 
         DownloadSourceDetails task = new DownloadSourceDetails();
-        task.execute((Void) null);
+        // task.execute((Void) null);
 
+        // need this if we don't call execute above
+        getLoaderManager().initLoader(0, null, loaderCallBack);
         return rootView;
     }
 

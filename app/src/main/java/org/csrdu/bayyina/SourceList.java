@@ -35,7 +35,7 @@ public class SourceList extends Activity {
         // }
 
         SourceUpdaterTask task = new SourceUpdaterTask();
-        task.execute((Void) null);
+        // task.execute((Void) null);
 
     }
 
@@ -72,6 +72,9 @@ public class SourceList extends Activity {
         } else if (id == R.id.menu_source_update_all) {
             SourceUpdaterTask task = new SourceUpdaterTask();
             task.execute((Void) null);
+        } else if (id == R.id.menu_source_about) {
+            Intent i = new Intent(this, AboutActivity.class);
+            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);

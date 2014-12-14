@@ -122,7 +122,7 @@ public class DownloadHelper {
             e.printStackTrace();
         }
 
-        Log.i(TAG, "Received response: \n" + response);
+        // Log.i(TAG, "Received response: \n" + response);
         processBayanList(context, response, source_id);
 
         SourceHelper sh = new SourceHelper();

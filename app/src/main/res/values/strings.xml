@@ -8,5 +8,10 @@
     <string name="bayan_list_activity_name">Bayan List</string>
     <string name="title_activity_bayan_details">Bayan Details</string>
     <string name="title_activity_source_metadata">Source Metadata</string>
+    <string name="title_activity_about">About Bayyina</string>
+
+    <string name="about_content">
+
+    </string>
 
 </resources>

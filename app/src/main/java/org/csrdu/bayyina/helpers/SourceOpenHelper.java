@@ -49,18 +49,18 @@ public class SourceOpenHelper extends SQLiteOpenHelper {
 
         String sql;
         sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ "," + SOURCE_STATUS +" ) "
-                + " values ( 'Tasawwuf', 'http://csrdu.org/bayyina/tasawwuf','2014-12-03 12:02:02', '"+SOURCE_STATUS_NEEDS_SYNCING+"' )";
+                + " values ( 'Tasawwuf.org (Sh Zulfiqar Ahmad DB)', 'http://sunnahacademy.org/bayyina/tasawwuf','UTC 2014-01-01 12:00:00', '"+SOURCE_STATUS_NEEDS_SYNCING+"' )";
         db.execSQL(sql);
 
-        /*
+
         sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ "," + SOURCE_STATUS +" ) "
-                + " values ( 'Suluk', 'http://csrdu.org/bayyina/suluk','2014-12-03 13:05:01', '"+SOURCE_STATUS_SYNCED+"' )";
+                + " values ( 'Suluk.com (Sh Mustafa Kamal DB)', 'http://sunnahacademy.org/bayyina/suluk','PKT 2014-01-01 12:00:00', '"+SOURCE_STATUS_SYNCED+"' )";
         db.execSQL(sql);
 
         sql = "insert into " + SOURCE_TABLE_NAME+ " ( " + SOURCE_TITLE+ "," + SOURCE_URL + "," + SOURCE_LAST_UPDATED+ "," + SOURCE_STATUS +" ) "
-                + " values ( 'Sunnah Academy', 'http://sunnahacademy.org/bayyina','2014-12-03 01:05:02', '"+SOURCE_STATUS_SYNCED+"' )";
+                + " values ( 'Sunnah Academy (Sh Mustafa Kamal DB)', 'http://sunnahacademy.org/bayyina/sunnahacademy/','2014-01-01 12:00:00', '"+SOURCE_STATUS_SYNCED+"' )";
         db.execSQL(sql);
-        */
+
 
         Log.i(TAG, "Inserted Source List DB dummy data");
     }

@@ -3,9 +3,14 @@
     <item android:id="@+id/menu_source_update_all"
         android:title="Update All"
         android:orderInCategory="100"
-        android:showAsAction="ifRoom" />
+        android:showAsAction="always" />
     <item android:id="@+id/menu_source_add_new"
         android:title="Add New"
         android:orderInCategory="80"
         android:showAsAction="always" />
+
+    <item android:id="@+id/menu_source_about"
+        android:title="About"
+        android:orderInCategory="200"
+        android:showAsAction="collapseActionView" />
 </menu>

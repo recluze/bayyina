@@ -11,12 +11,12 @@
         android:icon="@drawable/pen_drive"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
             android:name="org.csrdu.bayyina.SourceList"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,16 +28,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.csrdu.bayyina.SourceList" />
         </activity>
-
         <activity
             android:name="org.csrdu.bayyina.BayanDetailsActivity"
             android:label="@string/title_activity_bayan_details"
-            android:parentActivityName="org.csrdu.bayyina.BayanList">
+            android:parentActivityName="org.csrdu.bayyina.BayanList" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.csrdu.bayyina.BayanList" />
         </activity>
-
         <activity
             android:name="org.csrdu.bayyina.SourceMetadataActivity"
             android:label="@string/title_activity_source_metadata"
@@ -47,9 +45,7 @@
                 android:value="org.csrdu.bayyina.SourceList" />
         </activity>
 
-
         <service android:name="org.csrdu.bayyina.service.SourceUpdateChecker" />
-
 
         <provider
             android:name="org.csrdu.bayyina.helpers.SourceListProvider"
@@ -58,8 +54,14 @@
             android:name="org.csrdu.bayyina.helpers.BayanListProvider"
             android:authorities="org.csrdu.bayyina.bayans.BayanListProvider" />
 
-
-
+        <activity
+            android:name="org.csrdu.bayyina.AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName="org.csrdu.bayyina.SourceList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.csrdu.bayyina.SourceList" />
+        </activity>
     </application>
 
 </manifest>
