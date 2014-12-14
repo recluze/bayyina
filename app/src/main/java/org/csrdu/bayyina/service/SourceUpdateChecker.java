@@ -47,9 +47,12 @@ public class SourceUpdateChecker extends Service {
                 handler.post(new Runnable() {
                     public void run() {
                         try {
+                            Log.i(TAG, "Service executing in background checking for updates");
                             DownloaderTask performBackgroundTask = new DownloaderTask();
                             performBackgroundTask.execute();
                         } catch (Exception e) {
+                            Log.i(TAG, "Service exception in running background task at interval");
+                            e.printStackTrace();
                         }
                     }
                 });
@@ -74,6 +77,8 @@ public class SourceUpdateChecker extends Service {
             SourceHelper sh = new SourceHelper();
             boolean are_some_bayans_refreshed = sh.updateAllSourceStatuses(getBaseContext());
 
+            Log.i(TAG, "Service got are_some_bayans_refreshed: [" + are_some_bayans_refreshed + "]");
+
             if(are_some_bayans_refreshed) {
                 Notification n = new Notification.Builder(getBaseContext())
                         .setContentTitle("Bayyina: New bayans are available")
@@ -87,7 +92,7 @@ public class SourceUpdateChecker extends Service {
                         (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                 notificationManager.notify(0, n);
-                Log.i(TAG, "Notification sent.");
+                Log.i(TAG, "Service Notification sent.");
             }
 
             return null;

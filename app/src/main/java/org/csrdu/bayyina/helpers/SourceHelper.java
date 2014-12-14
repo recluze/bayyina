@@ -48,7 +48,8 @@ public class SourceHelper {
                 String source_last_updated = cur.getString(cur.getColumnIndex(SourceOpenHelper.SOURCE_LAST_UPDATED));
 
                 String source_uri = SourceListProvider.CONTENT_URI.toString() + "/" + source_id;
-                are_some_sources_refreshed = updateSourceStatus(context, source_id, source_title, source_url, source_last_updated, source_uri);
+                boolean this_source_updated = updateSourceStatus(context, source_id, source_title, source_url, source_last_updated, source_uri);
+                are_some_sources_refreshed = are_some_sources_refreshed || this_source_updated;
 
             } while (cur.moveToNext());
         }
