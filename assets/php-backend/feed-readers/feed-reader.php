@@ -94,7 +94,7 @@ class FeedReader {
                 echo "[SKIP] Already have bayan with url [$abs_url] <br />"; 
             } else { 
                 echo "Adding new bayan [$title] <br />"; 
-                $uploaded_on = date('Y-m-d'); 
+                $uploaded_on = isset($bayan['uploaded_on']) ? $bayan['uploaded_on'] : date('Y-m-d'); 
 
                 $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $sql = "INSERT INTO bayans (title, url, tags, uploaded_on) values(?, ?, ?, ?)";

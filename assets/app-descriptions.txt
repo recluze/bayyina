@@ -1,0 +1,41 @@
+Tite: 
+===== 
+
+Bayyina
+
+Short Description: 
+==================
+
+Automatically receive notifications about bayans uploaded to selected sources. 
+
+
+Full Description: 
+=================
+
+
+Bayyina is a small app with one objective: to allow you to download bayans from 
+selected sources. You may add sources to the list. (These sources have to support 
+the bayyina protocol for bayan discovery.) 
+
+Once added, you will receive a notification whenever a bayan is uploaded on any 
+source. You can then open the app and download the bayan to your phone. 
+
+Developers: 
+
+Bayyina has been developed by Sunnah Academy (http://www.sunnahacademy.org) under 
+the guidance of Shaykh Mustafa Kamal (db), who is authorized by Hazrat Shaykh 
+Zulfiqar Ahmad Naqshbandi Mujaddidi (db) in the science of tasawwuf (Islamic 
+spirituality). 
+
+Limitations: 
+
+Bayyina is a small app with limited features. We plan on making the current version 
+stable before adding more features inshaallah. As such, please note the following: 
+
+- Bayyina does not have bayan playback capabilities. It only allows downloading of 
+bayans. You can then play them using any media player already available on your 
+device. 
+
+- Since Bayyina is under beta program, there will be bugs. Please report any to the
+developers at bayyina@csrdu.org 
+
